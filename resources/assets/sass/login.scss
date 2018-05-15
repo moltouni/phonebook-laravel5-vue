@@ -1,0 +1,28 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+body {
+  padding-top: 64px;
+}
+
+$color-white: #fff;
+$a-color: #666;
+
+a, a:focus, a:hover {
+    text-decoration: none;
+    color: $a-color;
+}
+
+.hero {
+  
+  text-align: center;
+  margin-bottom: 128px;
+
+}
