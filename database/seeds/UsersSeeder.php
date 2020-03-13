@@ -13,10 +13,10 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $user = User::firstOrCreate([
-            'first_name' => env('USER_FIRST_NAME', 'John'),
-            'last_name' => env('USER_LAST_NAME', 'Smith'),
-            'email' => env('USER_EMAIL', 'mail@somewhere.com'),
-            'password' => Hash::make(env('USER_PASSWORD', 'secret')),
+            'first_name' => config('users.test.USER_FIRST_NAME'),
+            'last_name' => config('users.test.USER_LAST_NAME'),
+            'email' => config('users.test.USER_EMAIL'),
+            'password' => Hash::make(config('users.test.USER_PASSWORD')),
         ]);
     }
 }
