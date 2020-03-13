@@ -11,6 +11,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
+            <p class="text-center">No e-mail confirmation needed.</p>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
@@ -86,7 +87,7 @@
                     </div>
                 </div>
             </form>
-            
+
         </div>
     </div>
 </div>
