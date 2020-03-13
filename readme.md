@@ -13,18 +13,20 @@ Simple phonebook app that demonstrates usage of repository pattern in Laravel 5,
 - Search Contacts
 - Filter Contacts ( `all` / `favorite` )
 - Add Contact
-    - First name
-    - Last name
-    - Avatar
-    - Email
-    - Favorite [boolean]
-    - Phones
-        - Number (e.g. 023 3923 3939)
-        - Label (e.g. Work)
+  - First name
+  - Last name
+  - Avatar
+  - Email
+  - Favorite [boolean]
+  - Phones
+    - Number (e.g. 023 3923 3939)
+    - Label (e.g. Work)
 
-## Packages
+## Stack and Packages
 
 **API**
+
+- MySQL
 
 - [Laravel 5](https://github.com/laravel/framework)
 
@@ -38,21 +40,20 @@ Simple phonebook app that demonstrates usage of repository pattern in Laravel 5,
 
 - [Vuex](https://github.com/vuejs/vuex)
 
-
 ## Seeders
 
 Run `php artisan db:seed`
 
 - **PassportSeeder**
-    - Creates default Passport client for testing purposes
-        - Client id: 1,
-        - Client secret: `env('POSTMAN_CLIENT_SECRET', 'PostmanNDC6Of0XbmHHTcZIi34PFuwbyTQegfyd0')`
+  - Creates default Passport client for testing purposes
+    - Client id: 1,
+    - Client secret: `config('auth.POSTMAN_CLIENT_SECRET', 'PostmanNDC6Of0XbmHHTcZIi34PFuwbyTQegfyd0')`
 - **UsersSeeder**
-    - Creates default user
-        - First name: `env('USER_FIRST_NAME', 'John')`,
-        - Last name: `env('USER_LAST_NAME', 'Smith')`,
-        - Email: `env('USER_EMAIL', 'mail@somewhere.com')`,
-        - Password: `env('USER_PASSWORD', 'secret')`
+  - Creates default user
+    - First name: `config('users.test.USER_FIRST_NAME', 'John')`,
+    - Last name: `config('users.test.USER_LAST_NAME', 'Smith')`,
+    - Email: `config('users.test.USER_EMAIL', 'test@phonebook.marionovak.online')`,
+    - Password: `config('users.test.USER_PASSWORD', 'secret')`
 
 ## Tests
 
@@ -76,10 +77,12 @@ Run `./vendor/bin/phpunit`
 
 ## Todo
 
+- Project-wide
+  - Docker as a submodule
 - Frontend
-    - Refactor
-    - Responsive fixes
-    - Vuex
+  - Refactor
+  - Responsive fixes
+  - Vuex
 
 ## License
 
