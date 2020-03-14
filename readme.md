@@ -107,11 +107,8 @@ Run `./vendor/bin/phpunit`
 
 ## Todo
 
-- Project-wide
-  - Docker as a submodule
 - Frontend
   - Refactor
-  - Responsive fixes
   - Vuex
 
 ## License
