@@ -1,7 +1,8 @@
 <template>
   <div class="container contact-form">
     <div class="row">
-      <!-- Contact Avatar -->
+      <!-- Avatar -->
+
       <div class="col-md-4 contact-form-left">
         <div class="form-group">
           <picture-input
@@ -23,9 +24,11 @@
         </div>
       </div>
 
-      <!-- General contact info -->
+      <!-- Information -->
 
       <div class="col-md-8 contact-form-right">
+        <!-- Favorite -->
+
         <div class="form-group">
           <label for="favorite">
             <p>Favorite</p>
@@ -41,6 +44,8 @@
             id="favorite"
           />
         </div>
+
+        <!-- First Name -->
 
         <div class="row">
           <div class="col">
@@ -59,6 +64,8 @@
           </div>
         </div>
 
+        <!-- Last Name -->
+
         <div class="row">
           <div class="col">
             <div class="form-group">
@@ -75,6 +82,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Email -->
 
         <div class="row">
           <div class="col">
@@ -94,9 +103,12 @@
         </div>
 
         <!-- Phones -->
+
         <div class="contact-form-phones">
           <p>Phones</p>
+
           <button @click="addPhoneField" class="btn btn-secondary">Add</button>
+
           <div v-for="(phone, index) in phones" :key="phone.id">
             <div class="row contact-form-phones-item">
               <div class="col">
@@ -114,9 +126,14 @@
       </div>
 
       <!-- Save -->
-      <button class="btn btn-success contact-form-save" @click="saveContact">Save Contact</button>
+
+      <button
+        class="btn btn-success contact-form-save"
+        @click="saveContact(contact, phones)"
+      >Save Contact</button>
 
       <!-- Delete -->
+
       <button
         v-if="contact.id"
         @click="deleteContact(contact.id)"
@@ -134,16 +151,15 @@ export default {
     PictureInput
   },
   mounted() {
-    this.contact_id = this.$route.params.contact;
-    if (this.contact_id) {
-      this.getContact();
-      this.getPhones();
+    let contactId = this.$route.params.contact;
+
+    if (contactId) {
+      this.getContact(contactId);
+      this.getContactPhones(contactId);
     }
   },
   data() {
     return {
-      contact_id: null,
-
       contact: {
         type: Object,
         default: {
@@ -158,9 +174,9 @@ export default {
     };
   },
   methods: {
-    removePhoneField: function(index) {
-      this.phones.splice(index, 1);
-    },
+    /**
+     * Add Phone Field
+     */
     addPhoneField: function() {
       this.phones.push({
         label: null,
@@ -168,6 +184,20 @@ export default {
       });
     },
 
+    /**
+     * Remove Phone Field
+     *
+     * @param {Number} index Index of the field
+     */
+    removePhoneField: function(index) {
+      this.phones.splice(index, 1);
+    },
+
+    /**
+     * On Avatar Change
+     *
+     * @param {*} avatar Avatar
+     */
     onAvatarChange: function(avatar) {
       if (avatar) {
         this.contact.avatar = this.$refs.pictureInput.file;
@@ -176,11 +206,39 @@ export default {
       }
     },
 
-    prepareFormData: function() {
+    /**
+     * Save Contact
+     *
+     * @param {Object} contact New or existing contact data
+     * @param {Array} phones Phones of the contact
+     */
+    saveContact: function(contact, phones) {
+      let url = null;
+      let data = this.getContactFormData(contact);
+
+      if (!contact.id) {
+        url = "/api/contacts";
+      } else {
+        url = `/api/contacts/${contact.id}`;
+        data.append("_method", "PATCH");
+      }
+
+      axios.post(url, data).then(response => {
+        this.contact = response.data.data;
+        this.saveContactPhones(this.contact.id, phones);
+      });
+    },
+
+    /**
+     * Get Contact FormData
+     *
+     * @param {Object} contact Contact
+     */
+    getContactFormData: function(contact) {
       let formData = new FormData();
 
-      Object.keys(this.contact).map(key => {
-        const val = this.contact[key];
+      Object.keys(contact).map(key => {
+        const val = contact[key];
         if (!val) return;
 
         if (key == "avatar") {
@@ -191,68 +249,82 @@ export default {
         formData.append(key, val);
       });
 
-      formData.set("favorite", this.contact.favorite ? 1 : 0);
+      formData.set("favorite", contact.favorite ? 1 : 0);
 
       return formData;
     },
 
-    redirectToContact: function() {
+    /**
+     * Save Contact Phones
+     *
+     * @param {Number} contactId Contact Id
+     * @param {Array} phones Phones
+     */
+    saveContactPhones: function(contactId, phones) {
+      let url = `/api/contacts/${contactId}/phones`;
+
+      phones = phones.filter(el => {
+        return el.label != null && el.number != null;
+      });
+
+      let data = { phones: phones };
+
+      axios.post(url, data).then(response => {
+        this.redirectToContact(contactId);
+      });
+    },
+
+    /**
+     * Redirect to Contact page
+     *
+     * @param {Number} contactId Contact ID
+     */
+    redirectToContact: function(contactId) {
       this.$router.push({
         name: "contact-single",
         params: {
-          contact: this.contact_id
+          contact: contactId
         }
       });
     },
 
-    savePhones: function() {
-      let url = `/api/contacts/${this.contact_id}/phones`;
-
-      this.phones = this.phones.filter(el => {
-        return el.label != null && el.number != null;
-      });
-
-      let data = { phones: this.phones };
-
-      axios.post(url, data).then(response => {
-        this.redirectToContact();
-      });
-    },
-
-    saveContact: function() {
-      let url = "/api/contacts";
-      let data = this.prepareFormData();
-
-      if (this.contact_id) {
-        url = `/api/contacts/${this.contact_id}`;
-        data.append("_method", "PATCH");
-      }
-
-      axios.post(url, data).then(response => {
-        this.contact_id = response.data.data.id;
-        this.savePhones();
-      });
-    },
-
-    deleteContact: function(id) {
+    /**
+     * Get Contact
+     *
+     * @param {Number} id Contact Id
+     */
+    getContact: function(id) {
       let url = `/api/contacts/${id}`;
-      axios.delete(url).then(response => {
-        this.$router.push({ name: "contact-listing-all" });
-      });
-    },
 
-    getContact: function() {
-      let url = `/api/contacts/${this.contact_id}`;
       axios.get(url).then(response => {
         this.contact = response.data.data;
         this.contact.favorite = this.contact.favorite ? true : false;
       });
     },
 
-    getPhones: function() {
-      let url = `/api/contacts/${this.contact_id}/phones`;
+    /**
+     * Get Contact Phones
+     *
+     * @param {Number} id Contact Id
+     */
+    getContactPhones: function(id) {
+      let url = `/api/contacts/${id}/phones`;
+
       axios.get(url).then(response => {
         this.phones = response.data.data;
+      });
+    },
+
+    /**
+     * Delete Contact
+     *
+     * @param {Number} id Contact Id
+     */
+    deleteContact: function(id) {
+      let url = `/api/contacts/${id}`;
+
+      axios.delete(url).then(response => {
+        this.$router.push({ name: "contact-listing-all" });
       });
     }
   }
