@@ -107,7 +107,7 @@
         <div class="contact-form-phones">
           <p>Phones</p>
 
-          <button @click="addPhoneField" class="btn btn-secondary">Add</button>
+          <button @click="addPhoneField" class="btn btn-outline-secondary">Add</button>
 
           <div v-for="(phone, index) in phones" :key="phone.id">
             <div class="row contact-form-phones-item">
@@ -118,27 +118,30 @@
                 <input v-model="phone.label" type="text" class="form-control" placeholder="Label" />
               </div>
               <div class="col">
-                <button @click="removePhoneField(index)" class="btn btn-secondary">Remove phone</button>
+                <button
+                  @click="removePhoneField(index)"
+                  class="btn btn-outline-secondary"
+                >Remove phone</button>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Save -->
+
+        <button
+          class="btn btn-outline-success contact-form-save"
+          @click="saveContact(contact, phones)"
+        >Save Contact</button>
+
+        <!-- Delete -->
+
+        <button
+          v-if="contact.id"
+          @click="deleteContact(contact.id)"
+          class="btn btn-outline-danger contact-form-delete"
+        >Delete Contact</button>
       </div>
-
-      <!-- Save -->
-
-      <button
-        class="btn btn-success contact-form-save"
-        @click="saveContact(contact, phones)"
-      >Save Contact</button>
-
-      <!-- Delete -->
-
-      <button
-        v-if="contact.id"
-        @click="deleteContact(contact.id)"
-        class="btn btn-danger contact-form-delete"
-      >Delete Contact</button>
     </div>
   </div>
 </template>
