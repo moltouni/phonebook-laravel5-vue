@@ -1,0 +1,3 @@
+[submodule "docker-phonebook-laravel5-vue2"]
+	path = docker-phonebook-laravel5-vue2
+	url = git@github.com:moltouni/docker-phonebook-laravel5-vue2.git
