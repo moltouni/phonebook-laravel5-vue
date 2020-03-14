@@ -2,20 +2,6 @@
   <div class="contact-listing">
     <GlobalEvents @keyup.191="focusSearch" />
 
-    <div class="filter">
-      <router-link :to="{ name: 'contact-listing-all' }">
-        <div v-bind:class="{ active: filter == 'all'}" class="filter-box">
-          <h3 class="filter-box-text">All</h3>
-        </div>
-      </router-link>
-
-      <router-link :to="{ name: 'contact-listing-favorites' }">
-        <div v-bind:class="{ active: filter == 'favorites'}" class="filter-box">
-          <h3 class="filter-box-text">Favorites</h3>
-        </div>
-      </router-link>
-    </div>
-
     <div class="search">
       <input type="text" ref="search" @input="search" v-model="query" placeholder="Search" />
     </div>
@@ -23,10 +9,6 @@
     <pulse-loader class="loader" :loading="loading" size="16px"></pulse-loader>
 
     <div v-if="!loading" class="contacts">
-      <router-link v-if="filter != 'search'" class="contact-add" :to="{name: 'contact-add'}">
-        <icon name="plus"></icon>
-      </router-link>
-
       <contact-component
         @favoriteToggle="favoriteToggle"
         @destroy="destroy"
@@ -56,6 +38,7 @@ export default {
   },
   created() {
     let routeName = this.$router.currentRoute.name;
+
     if (routeName == "contact-listing-favorites") {
       this.filter = "favorites";
       this.apiUrl = "/api/contacts?search=favorite:1";
@@ -64,6 +47,7 @@ export default {
       this.apiUrl = "/api/contacts";
     } else if (routeName == "contact-listing-search") {
       this.query = this.$route.query.q;
+
       if (this.query == "") {
         this.$router.push({ name: "contact-listing-all" });
       }
@@ -73,7 +57,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.search.focus();
+    this.focusSearch();
     this.getContacts();
   },
   data() {
@@ -130,46 +114,17 @@ export default {
 
 <style lang="scss" scoped>
 $margin: 64px;
-$filter-box-bg: #eee;
-$filter-box-icon-size: 24px;
+$borderRadius: 8px;
 
-$contact-margin: 64px;
-$contact-width: 420px;
-$contact-height: $contact-width/1.7;
+$contactWidth: 420px;
+$contactHeight: $contactWidth/1.7;
 
-$search-font-size: 24px;
+$searchFontSize: 24px;
 
 .contact-listing {
-  .filter,
-  .contacts {
+  .contacts,
+  .search {
     margin-top: $margin;
-  }
-
-  .filter {
-    margin: $margin auto;
-    text-align: center;
-
-    .filter-box {
-      font-weight: bold;
-      text-align: center;
-      display: inline-block;
-      margin: 0 $margin / 2;
-
-      &.active {
-        background: $filter-box-bg;
-        border-radius: 8px;
-        padding: 8px;
-      }
-
-      .filter-box-icon {
-        font-size: $filter-box-icon-size;
-      }
-
-      .filter-box-text {
-        font-weight: bold;
-        margin-top: $margin/8;
-      }
-    }
   }
 
   .search {
@@ -177,8 +132,9 @@ $search-font-size: 24px;
     input {
       max-width: 100%;
       width: 600px;
-      font-size: $search-font-size;
+      font-size: $searchFontSize;
       padding: 8px 16px;
+
       &:focus {
         outline: none;
       }
@@ -199,11 +155,11 @@ $search-font-size: 24px;
       text-align: center;
       background: #eee;
       border: 3px dashed #ddd;
-      border-radius: 8px;
+      border-radius: $borderRadius;
       padding: 80px;
-      width: $contact-width;
+      width: $contactWidth;
       max-width: 100%;
-      height: $contact-height;
+      height: $contactHeight;
       font-size: 64px;
       margin: 8px;
     }
