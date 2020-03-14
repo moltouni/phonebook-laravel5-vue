@@ -28,7 +28,7 @@
       <div class="col-md-8 contact-form-right">
         <div class="form-group">
           <label for="favorite">
-            <h4>Favorite</h4>
+            <p>Favorite</p>
           </label>
           <toggle-button
             v-model="contact.favorite"
@@ -46,7 +46,7 @@
           <div class="col">
             <div class="form-group">
               <label for="firstName">
-                <h4>First name</h4>
+                <p>First name</p>
               </label>
               <input
                 v-model="contact.first_name"
@@ -63,7 +63,7 @@
           <div class="col">
             <div class="form-group">
               <label for="lastName">
-                <h4>Last name</h4>
+                <p>Last name</p>
               </label>
               <input
                 v-model="contact.last_name"
@@ -80,7 +80,7 @@
           <div class="col">
             <div class="form-group">
               <label for="email">
-                <h4>Email</h4>
+                <p>Email</p>
               </label>
               <input
                 v-model="contact.email"
@@ -95,11 +95,8 @@
 
         <!-- Phones -->
         <div class="contact-form-phones">
-          <h4>
-            Phones
-            <button @click="addPhoneField" class="btn btn-outline-secondary">Add</button>
-          </h4>
-
+          <p>Phones</p>
+          <button @click="addPhoneField" class="btn btn-secondary">Add</button>
           <div v-for="(phone, index) in phones" :key="phone.id">
             <div class="row contact-form-phones-item">
               <div class="col">
@@ -109,10 +106,7 @@
                 <input v-model="phone.label" type="text" class="form-control" placeholder="Label" />
               </div>
               <div class="col">
-                <button
-                  @click="removePhoneField(index)"
-                  class="btn btn-outline-secondary"
-                >Remove phone</button>
+                <button @click="removePhoneField(index)" class="btn btn-secondary">Remove phone</button>
               </div>
             </div>
           </div>
@@ -120,14 +114,14 @@
       </div>
 
       <!-- Save -->
-      <button class="btn btn-outline-success contact-form-save" @click="saveContact">Save</button>
+      <button class="btn btn-success contact-form-save" @click="saveContact">Save Contact</button>
 
       <!-- Delete -->
       <button
         v-if="contact.id"
         @click="deleteContact(contact.id)"
-        class="btn btn-outline-danger contact-form-delete"
-      >Delete contact</button>
+        class="btn btn-danger contact-form-delete"
+      >Delete Contact</button>
     </div>
   </div>
 </template>
@@ -272,22 +266,14 @@ $margin: 64px;
 .contact-form {
   margin-top: $margin;
 
-  .contact-form-right {
-    .vue-js-switch.favorite {
-      display: block;
-      font-size: 16px;
-    }
-
-    .contact-form-phones {
-      .contact-form-phones-item {
-        margin-top: $margin/2;
-      }
-    }
+  .vue-js-switch.favorite {
+    display: block;
+    font-size: 16px;
   }
 
-  .contact-form-left {
-    .form-group {
-      margin-top: $margin;
+  .contact-form-phones {
+    .contact-form-phones-item {
+      margin-top: $margin/2;
     }
   }
 
