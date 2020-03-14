@@ -10,19 +10,16 @@
             class="contact-avatar"
           ></avatar>
 
-          <button
-            @click="favoriteToggle()"
-            class="favorite contact-edit-button btn btn-outline-success"
-          >
+          <button @click="favoriteToggle()" class="favorite contact-edit-button btn btn-success">
             <icon v-if="!contact.favorite" class="icon" name="regular/heart"></icon>
             <icon v-else class="icon" name="heart"></icon>Favorite
           </button>
 
           <router-link :to="{ name: 'contact-single-edit' }">
-            <button class="contact-edit-button btn btn-outline-secondary">Edit</button>
+            <button class="contact-edit-button btn btn-secondary">Edit</button>
           </router-link>
 
-          <button @click="destroy()" class="contact-edit-button btn btn-outline-danger">Delete</button>
+          <button @click="destroy()" class="contact-edit-button btn btn-danger">Delete</button>
         </div>
         <div class="col-md-8 contact-right">
           <div class="contact-info">
