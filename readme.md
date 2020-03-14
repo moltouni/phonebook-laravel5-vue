@@ -40,6 +40,36 @@ Simple phonebook app that demonstrates usage of repository pattern in Laravel 5,
 
 - [Vuex](https://github.com/vuejs/vuex)
 
+## Installation
+
+**Docker submodule: Init**
+
+```
+git submodule update --init --recursive
+```
+
+**Docker Environment: Start**
+
+```
+cd ./docker/
+docker-compose up -d nginx workspace mysql
+cd ../
+```
+
+**Initialize environment**
+
+```
+npm install
+cd ./docker/
+docker-compose exec workspace bash
+composer install
+composer dumpautoload
+php artisan key:generate
+php artisan migrate:refresh --seed
+php artisan passport:keys --force
+php artisan storage:link
+```
+
 ## Seeders
 
 Run `php artisan db:seed`
