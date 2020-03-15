@@ -27,7 +27,7 @@
     <!-- Name -->
 
     <router-link :to="{ name: 'contact-single', params: { contact: contact.id } }">
-      <h2 class="name">{{ contact.first_name }} {{contact.last_name}}</h2>
+      <h3 class="name">{{ contact.first_name }} {{contact.last_name}}</h3>
     </router-link>
   </div>
 </template>
@@ -64,7 +64,7 @@ export default {
 $width: 420px;
 $height: $width/1.7;
 
-$background: #ddd;
+$background: #d3e0e9;
 
 .contact {
   display: inline-block;

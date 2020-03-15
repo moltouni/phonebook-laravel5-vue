@@ -8,39 +8,43 @@
           <avatar
             :username="contact.first_name + contact.last_name"
             :src="contact.avatar"
-            :size="256"
+            :size="128"
             class="contact-avatar"
           ></avatar>
 
-          <!-- Favorite toggle -->
+          <!-- Controls -->
 
-          <button
-            @click="toggleContactFavorite(contact)"
-            class="favorite contact-edit-button btn btn-outline-success"
-          >
-            <icon v-if="!contact.favorite" class="icon" name="regular/heart"></icon>
-            <icon v-else class="icon" name="heart"></icon>
-          </button>
+          <div class="contact-controls">
+            <!-- Favorite toggle -->
 
-          <!-- Edit button -->
+            <button
+              @click="toggleContactFavorite(contact)"
+              class="favorite contact-edit-button btn btn-sm btn-outline-success"
+            >
+              <icon v-if="!contact.favorite" class="icon" name="regular/heart"></icon>
+              <icon v-else class="icon" name="heart"></icon>
+            </button>
 
-          <router-link :to="{ name: 'contact-single-edit' }">
-            <button class="contact-edit-button btn btn-outline-secondary">Edit</button>
-          </router-link>
+            <!-- Edit button -->
 
-          <!-- Delete button -->
+            <router-link :to="{ name: 'contact-single-edit' }">
+              <button class="contact-edit-button btn btn-sm btn-outline-secondary">Edit</button>
+            </router-link>
 
-          <button
-            @click="deleteContact(contact.id)"
-            class="contact-edit-button btn btn-outline-danger"
-          >Delete</button>
+            <!-- Delete button -->
+
+            <button
+              @click="deleteContact(contact.id)"
+              class="contact-edit-button btn btn-sm btn-outline-danger"
+            >Delete</button>
+          </div>
         </div>
-        <div class="col-md-7 offset-md-1 contact-right">
+        <div class="col-md-8 contact-right">
           <div class="contact-info">
             <!-- Name -->
 
             <div class="contact-info-name">
-              <h1>{{ contact.first_name }} {{ contact.last_name }}</h1>
+              <h3>{{ contact.first_name }} {{ contact.last_name }}</h3>
             </div>
 
             <!-- Email -->
@@ -55,11 +59,11 @@
           <div class="contact-phones" v-if="phones">
             <div class="contact-phones-item" v-for="phone in phones" :key="phone.id">
               <a :href="'tel:' + phone.number" class="contact-phones-item-number">
-                <h4 class="contact-phones-item-label">{{phone.label}}</h4>
-                <h4>
+                <h5 class="contact-phones-item-label">{{phone.label}}</h5>
+                <h5>
                   <icon name="phone"></icon>
                   {{phone.number}}
-                </h4>
+                </h5>
               </a>
             </div>
 
@@ -152,7 +156,7 @@ export default {
 
 <style lang="scss" scoped>
 $margin: 64px;
-$background: #ddd;
+$background: #d3e0e9;
 
 $sizeMd: 768px;
 $favorite-color: #22863a;
@@ -170,14 +174,14 @@ $favorite-color: #22863a;
       display: inline-block;
     }
 
-    .contact-edit-button {
-      margin-top: $margin;
+    .contact-controls {
+      margin-top: $margin / 2;
+      margin-bottom: $margin / 2;
     }
   }
 
   .contact-info {
     .contact-info-name {
-      margin-top: $margin / 8;
       font-weight: bold;
       text-align: center;
       @media (min-width: $sizeMd) {
@@ -203,8 +207,6 @@ $favorite-color: #22863a;
 
       .contact-phones-item-label {
         font-weight: bold;
-      }
-      .contact-phones-item-number {
       }
     }
   }

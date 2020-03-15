@@ -8,8 +8,8 @@
           <picture-input
             ref="pictureInput"
             @change="onAvatarChange"
-            width="256"
-            height="256"
+            width="128"
+            height="128"
             margin="0"
             accept="image/jpeg, image/png, image/jpg"
             size="10"
@@ -39,7 +39,7 @@
             :height="32"
             :value="false"
             :sync="true"
-            :labels="true"
+            :labels="false"
             class="favorite"
             id="favorite"
           />
@@ -111,37 +111,73 @@
 
           <div v-for="(phone, index) in phones" :key="phone.id">
             <div class="row contact-form-phones-item">
+              <!-- Label -->
+
               <div class="col">
-                <input v-model="phone.number" type="text" class="form-control" placeholder="Number" />
+                <div class="form-group">
+                  <label :for="`phoneLabel-${index}`">Label (*)</label>
+                  <input
+                    v-model="phone.label"
+                    type="text"
+                    class="form-control"
+                    :id="`phoneLabel-${index}`"
+                    placeholder="Label"
+                  />
+                </div>
               </div>
+
+              <!-- Number -->
+
               <div class="col">
-                <input v-model="phone.label" type="text" class="form-control" placeholder="Label" />
+                <div class="form-group">
+                  <label :for="`phoneNumber-${index}`">Number (*)</label>
+                  <input
+                    v-model="phone.number"
+                    type="text"
+                    class="form-control"
+                    :id="`phoneNumber-${index}`"
+                    placeholder="Number"
+                  />
+                </div>
               </div>
+
+              <!-- Delete -->
+
               <div class="col">
-                <button
-                  @click="removePhoneField(index)"
-                  class="btn btn-outline-secondary"
-                >Remove phone</button>
+                <div class="form-group">
+                  <label :for="`phoneRemove-${index}`">Remove</label>
+                  <button
+                    @click="removePhoneField(index)"
+                    :id="`phoneRemove-${index}`"
+                    class="btn btn-outline-secondary"
+                  >
+                    <icon name="times"></icon>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Save -->
+        <!-- Controls -->
 
-        <button
-          :disabled="!isFormDataValid"
-          class="btn btn-success contact-form-save"
-          @click="saveContact(contact, phones)"
-        >Save Contact</button>
+        <div class="text-center">
+          <!-- Delete -->
 
-        <!-- Delete -->
+          <button
+            v-if="contact.id"
+            @click="deleteContact(contact.id)"
+            class="btn btn-danger contact-form-delete"
+          >Delete Contact</button>
 
-        <button
-          v-if="contact.id"
-          @click="deleteContact(contact.id)"
-          class="btn btn-danger contact-form-delete"
-        >Delete Contact</button>
+          <!-- Save -->
+
+          <button
+            :disabled="!isFormDataValid"
+            class="btn btn-success contact-form-save"
+            @click="saveContact(contact, phones)"
+          >Save Contact</button>
+        </div>
       </div>
     </div>
   </div>
@@ -343,7 +379,7 @@ export default {
 
 <style lang="scss" scoped>
 $margin: 64px;
-$background: #ddd;
+$background: #d3e0e9;
 
 .contact-form {
   margin-top: $margin;
@@ -369,7 +405,6 @@ $background: #ddd;
   .contact-form-save,
   .contact-form-delete {
     margin: $margin / 2 0;
-    width: 100%;
   }
 }
 </style>
