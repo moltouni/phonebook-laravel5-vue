@@ -24,7 +24,7 @@
 
           <button @click="destroy()" class="contact-edit-button btn btn-outline-danger">Delete</button>
         </div>
-        <div class="col-md-8 contact-right">
+        <div class="col-md-7 offset-md-1 contact-right">
           <div class="contact-info">
             <div class="contact-info-name">
               <h1>{{ contact.first_name }} {{ contact.last_name }}</h1>
