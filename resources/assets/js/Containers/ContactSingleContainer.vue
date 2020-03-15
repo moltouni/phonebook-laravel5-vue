@@ -37,8 +37,8 @@
 
           <div class="contact-phones" v-if="phones">
             <div class="contact-phones-item" v-for="phone in phones" :key="phone.id">
-              <h4 class="contact-phones-item-label">{{phone.label}}</h4>
               <a :href="'tel:' + phone.number" class="contact-phones-item-number">
+                <h4 class="contact-phones-item-label">{{phone.label}}</h4>
                 <h4>
                   <icon name="phone"></icon>
                   {{phone.number}}
