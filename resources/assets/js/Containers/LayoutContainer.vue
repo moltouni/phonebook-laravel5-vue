@@ -19,7 +19,6 @@
             v-if="filter !== 'all'"
             :to="{ name: 'contact-listing-all' }"
             class="dropdown-item"
-            v-bind:class="{ active: filter == 'all', 'dropdown-item' : true}"
           >All</router-link>
 
           <router-link
@@ -152,6 +151,11 @@ $searchFontSize: 21px;
   padding: 12px;
   .dropdown {
     display: inline-block;
+    .dropdown-item.active,
+    .dropdown-item:active {
+      color: inherit;
+      background-color: inherit;
+    }
   }
 
   .searchContainer {
