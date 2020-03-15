@@ -3,6 +3,8 @@
     <div class="contact-container" v-if="contact">
       <div class="row">
         <div class="col-md-4 contact-left">
+          <!-- Avatar -->
+
           <avatar
             :username="contact.first_name + contact.last_name"
             :src="contact.avatar"
@@ -10,30 +12,45 @@
             class="contact-avatar"
           ></avatar>
 
+          <!-- Favorite toggle -->
+
           <button
-            @click="favoriteToggle()"
+            @click="toggleContactFavorite(contact)"
             class="favorite contact-edit-button btn btn-outline-success"
           >
             <icon v-if="!contact.favorite" class="icon" name="regular/heart"></icon>
             <icon v-else class="icon" name="heart"></icon>
           </button>
 
+          <!-- Edit button -->
+
           <router-link :to="{ name: 'contact-single-edit' }">
             <button class="contact-edit-button btn btn-outline-secondary">Edit</button>
           </router-link>
 
-          <button @click="destroy()" class="contact-edit-button btn btn-outline-danger">Delete</button>
+          <!-- Delete button -->
+
+          <button
+            @click="deleteContact(contact.id)"
+            class="contact-edit-button btn btn-outline-danger"
+          >Delete</button>
         </div>
         <div class="col-md-7 offset-md-1 contact-right">
           <div class="contact-info">
+            <!-- Name -->
+
             <div class="contact-info-name">
               <h1>{{ contact.first_name }} {{ contact.last_name }}</h1>
             </div>
+
+            <!-- Email -->
 
             <div class="contact-info-email">
               <a :href="'mailto:' + contact.email">{{ contact.email }}</a>
             </div>
           </div>
+
+          <!-- Numbers -->
 
           <div class="contact-phones" v-if="phones">
             <div class="contact-phones-item" v-for="phone in phones" :key="phone.id">
@@ -65,47 +82,68 @@ export default {
   },
 
   mounted() {
-    this.contact_id = this.$route.params.contact;
-    this.getContact();
-    this.getPhones();
+    let contactId = this.$route.params.contact;
+    this.getContact(contactId);
+    this.getContactPhones(contactId);
   },
   data() {
     return {
       contact: null,
-      phones: null,
-      contact_id: null
+      phones: null
     };
   },
   methods: {
-    getContact: function() {
-      let url = `/api/contacts/${this.contact_id}`;
+    /**
+     * Get Contact
+     *
+     * @param {Number} contactId Contact ID
+     */
+    getContact: function(contactId) {
+      let url = `/api/contacts/${contactId}`;
       axios.get(url).then(response => {
         this.contact = response.data.data;
       });
     },
 
-    getPhones: function() {
-      let url = `/api/contacts/${this.contact_id}/phones`;
+    /**
+     * Get Contact Phones
+     *
+     * @param {Number} contactId Contact ID
+     */
+    getContactPhones: function(contactId) {
+      let url = `/api/contacts/${contactId}/phones`;
       axios.get(url).then(response => {
         this.phones = response.data.data;
       });
     },
 
-    destroy: function() {
-      const url = `/api/contacts/${this.contact.id}`;
+    /**
+     * Delete Contact
+     *
+     * @param {Number} contactId Contact ID
+     */
+    deleteContact: function(contactId) {
+      const url = `/api/contacts/${contactId}`;
       axios.delete(url).then(response => {
         this.$router.push({ name: "contact-listing-all" });
       });
     },
-    favoriteToggle: function() {
-      let favorite_new = this.contact.favorite ? 0 : 1;
-      const url = `/api/contacts/${this.contact.id}`;
+
+    /**
+     * Toggle Favorite Flag for the Contact
+     *
+     * @param {Object} contact Contact
+     */
+    toggleContactFavorite: function(contact) {
+      let favoriteNew = contact.favorite ? 0 : 1;
+      const url = `/api/contacts/${contact.id}`;
+
       let data = new FormData();
       data.append("_method", "PATCH");
-      data.append("favorite", favorite_new);
+      data.append("favorite", favoriteNew);
 
       axios.post(url, data).then(response => {
-        this.getContact();
+        this.getContact(contact.id);
       });
     }
   }
