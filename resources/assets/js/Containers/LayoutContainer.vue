@@ -1,9 +1,11 @@
 <template>
   <div>
+    <GlobalEvents @keyup.191="focusSearch" />
+
     <nav class="navigation fixed-top">
       <!-- Filter Contacts -->
 
-      <div class="dropdown">
+      <div class="dropdown" v-if="!searchActive">
         <button
           :class="{'btn dropdown-toggle': true, 'btn-secondary': this.filter, 'btn-outline-secondary': !this.filter}"
           type="button"
@@ -11,7 +13,7 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-        >{{dropdownText}}</button>
+        >{{filterText}}</button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <router-link
             :to="{ name: 'contact-listing-all' }"
@@ -26,7 +28,8 @@
       </div>
 
       <!-- Add Contact -->
-      <router-link class="contact-add" :to="{name: 'contact-add'}">
+
+      <router-link class="contact-add" :to="{name: 'contact-add'}" v-if="!searchActive">
         <button
           :class="{'btn': true, 'btn-secondary': routeName == 'contact-add', 'btn-outline-secondary': routeName !== 'contact-add'}"
           type="button"
@@ -35,8 +38,31 @@
         </button>
       </router-link>
 
+      <!-- Search -->
+
+      <div :class="{'searchContainer': true, 'searchActive': searchActive}">
+        <button
+          :class="{'btn btn-outline-secondary': true, 'searchActive': searchActive}"
+          type="button"
+          @click="searchActive = !searchActive"
+        >
+          <icon v-if="!searchActive" name="search"></icon>
+          <icon v-else name="times"></icon>
+        </button>
+
+        <input
+          v-if="searchActive"
+          @input="search"
+          v-model="query"
+          placeholder="Search"
+          type="text"
+          ref="search"
+        />
+      </div>
+
       <!-- Logout -->
-      <button @click="logout" class="btn btn-outline-secondary logout">Logout</button>
+
+      <button @click="logout" class="btn btn-outline-secondary logout" v-if="!searchActive">Logout</button>
     </nav>
 
     <router-view></router-view>
@@ -44,26 +70,54 @@
 </template>
 
 <script>
+import _ from "lodash";
+import GlobalEvents from "vue-global-events";
+
 export default {
+  components: {
+    GlobalEvents
+  },
   data() {
     return {
+      query: null,
+      searchActive: false,
       filter: null,
       routeName: null
     };
   },
-  created() {
+  mounted() {
     this.routeName = this.$router.currentRoute.name;
 
     if (this.routeName == "contact-listing-favorites") {
       this.filter = "favorite";
     } else if (this.routeName == "contact-listing-all") {
       this.filter = "all";
+    } else if (this.routeName == "contact-listing-search") {
+      this.searchActive = true;
+      this.query = this.$route.query.q;
+
+      if (this.query == "") {
+        this.$router.push({ name: "contact-listing-all" });
+      } else {
+        this.focusSearch();
+      }
     } else {
       this.filter = null;
     }
   },
 
   methods: {
+    focusSearch: function() {
+      this.$nextTick(function() {
+        this.$refs.search.focus();
+      });
+    },
+    search: _.debounce(function(e) {
+      this.$router.push({
+        name: "contact-listing-search",
+        query: { q: this.query }
+      });
+    }, 200),
     capitalize: function(value) {
       if (!value) return "";
       value = value.toString();
@@ -78,7 +132,7 @@ export default {
     }
   },
   computed: {
-    dropdownText() {
+    filterText() {
       if (this.filter) {
         return this.capitalize(this.filter) + " Contacts";
       }
@@ -89,10 +143,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$searchFontSize: 21px;
+
 .navigation {
   padding: 12px;
   .dropdown {
     display: inline-block;
+  }
+
+  .searchContainer {
+    position: relative;
+    display: inline-block;
+    &.searchActive {
+      width: 100%;
+    }
+
+    button {
+      &.searchActive {
+        position: absolute;
+      }
+    }
+
+    input {
+      max-width: 100%;
+      width: 100%;
+      font-size: $searchFontSize;
+      padding: 0px 48px;
+
+      &:focus {
+        outline: none;
+      }
+    }
   }
 
   .logout {

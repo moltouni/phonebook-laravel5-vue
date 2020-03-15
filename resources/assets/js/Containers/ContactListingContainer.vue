@@ -1,11 +1,5 @@
 <template>
   <div class="contact-listing">
-    <GlobalEvents @keyup.191="focusSearch" />
-
-    <div class="search">
-      <input type="text" ref="search" @input="search" v-model="query" placeholder="Search" />
-    </div>
-
     <pulse-loader class="loader" :loading="loading" size="16px"></pulse-loader>
 
     <div v-if="!loading" class="contacts">
@@ -25,15 +19,12 @@
 </template>
 
 <script>
-import _ from "lodash";
-import GlobalEvents from "vue-global-events";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 import ContactComponent from "../Components/ContactComponent";
 
 export default {
   components: {
     PulseLoader,
-    GlobalEvents,
     ContactComponent
   },
   created() {
@@ -46,23 +37,17 @@ export default {
       this.filter = "all";
       this.apiUrl = "/api/contacts";
     } else if (routeName == "contact-listing-search") {
-      this.query = this.$route.query.q;
-
-      if (this.query == "") {
-        this.$router.push({ name: "contact-listing-all" });
-      }
+      let query = this.$route.query.q;
 
       this.filter = "search";
-      this.apiUrl = `/api/contacts?searchFields=first_name:like;last_name:like;email:like&search=${this.query}`;
+      this.apiUrl = `/api/contacts?searchFields=first_name:like;last_name:like;email:like&search=${query}`;
     }
   },
   mounted() {
-    this.focusSearch();
     this.getContacts();
   },
   data() {
     return {
-      query: null,
       contacts: [],
       loading: true,
 
@@ -71,17 +56,6 @@ export default {
     };
   },
   methods: {
-    focusSearch: function() {
-      this.$refs.search.focus();
-    },
-
-    search: _.debounce(function(e) {
-      this.$router.push({
-        name: "contact-listing-search",
-        query: { q: this.query }
-      });
-    }, 200),
-
     getContacts: function() {
       this.loading = true;
 
@@ -119,26 +93,9 @@ $borderRadius: 8px;
 $contactWidth: 420px;
 $contactHeight: $contactWidth/1.7;
 
-$searchFontSize: 24px;
-
 .contact-listing {
-  .contacts,
-  .search {
+  .contacts {
     margin-top: $margin;
-  }
-
-  .search {
-    text-align: center;
-    input {
-      max-width: 100%;
-      width: 600px;
-      font-size: $searchFontSize;
-      padding: 8px 16px;
-
-      &:focus {
-        outline: none;
-      }
-    }
   }
 
   .loader {
