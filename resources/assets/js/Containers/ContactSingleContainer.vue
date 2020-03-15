@@ -113,12 +113,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$sizeMd: 768px;
 $margin: 64px;
+$background: #ddd;
+
+$sizeMd: 768px;
 $favorite-color: #22863a;
 
 .contact-container {
   margin: $margin 0;
+  padding: $margin 0;
+  background: $background;
+  border-radius: 8px;
 
   .contact-left {
     text-align: center;

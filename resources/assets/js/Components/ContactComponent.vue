@@ -64,6 +64,8 @@ export default {
 $width: 420px;
 $height: $width/1.7;
 
+$background: #ddd;
+
 .contact {
   display: inline-block;
   position: relative;
@@ -75,8 +77,7 @@ $height: $width/1.7;
   padding: 64px;
   overflow: hidden;
   text-align: center;
-  background: #eee;
-  border: 3px solid #ddd;
+  background: $background;
   border-radius: 8px;
 
   .controls {

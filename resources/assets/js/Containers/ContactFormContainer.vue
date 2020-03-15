@@ -131,7 +131,7 @@
 
         <button
           :disabled="!isFormDataValid"
-          class="btn btn-outline-success contact-form-save"
+          class="btn btn-success contact-form-save"
           @click="saveContact(contact, phones)"
         >Save Contact</button>
 
@@ -140,7 +140,7 @@
         <button
           v-if="contact.id"
           @click="deleteContact(contact.id)"
-          class="btn btn-outline-danger contact-form-delete"
+          class="btn btn-danger contact-form-delete"
         >Delete Contact</button>
       </div>
     </div>
@@ -343,9 +343,17 @@ export default {
 
 <style lang="scss" scoped>
 $margin: 64px;
+$background: #ddd;
 
 .contact-form {
   margin-top: $margin;
+
+  & > .row {
+    margin: $margin 0;
+    padding: $margin 0;
+    background: $background;
+    border-radius: 8px;
+  }
 
   .vue-js-switch.favorite {
     display: block;
