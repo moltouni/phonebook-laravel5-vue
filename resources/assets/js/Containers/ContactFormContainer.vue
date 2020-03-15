@@ -51,7 +51,7 @@
           <div class="col">
             <div class="form-group">
               <label for="firstName">
-                <p>First name</p>
+                <p>First name (*)</p>
               </label>
               <input
                 v-model="contact.first_name"
@@ -70,7 +70,7 @@
           <div class="col">
             <div class="form-group">
               <label for="lastName">
-                <p>Last name</p>
+                <p>Last name (*)</p>
               </label>
               <input
                 v-model="contact.last_name"
@@ -130,6 +130,7 @@
         <!-- Save -->
 
         <button
+          :disabled="!isFormDataValid"
           class="btn btn-outline-success contact-form-save"
           @click="saveContact(contact, phones)"
         >Save Contact</button>
@@ -175,6 +176,11 @@ export default {
       },
       phones: []
     };
+  },
+  computed: {
+    isFormDataValid() {
+      return this.contact.first_name && this.contact.last_name;
+    }
   },
   methods: {
     /**
