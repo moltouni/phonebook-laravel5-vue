@@ -15,7 +15,7 @@
             class="favorite contact-edit-button btn btn-outline-success"
           >
             <icon v-if="!contact.favorite" class="icon" name="regular/heart"></icon>
-            <icon v-else class="icon" name="heart"></icon>Favorite
+            <icon v-else class="icon" name="heart"></icon>
           </button>
 
           <router-link :to="{ name: 'contact-single-edit' }">
@@ -125,12 +125,6 @@ $favorite-color: #22863a;
 
     .contact-avatar {
       display: inline-block;
-    }
-
-    .favorite {
-      .icon {
-        padding-right: 8px;
-      }
     }
 
     .contact-edit-button {
