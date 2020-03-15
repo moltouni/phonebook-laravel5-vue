@@ -16,13 +16,16 @@
         >{{filterText}}</button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <router-link
+            v-if="filter !== 'all'"
             :to="{ name: 'contact-listing-all' }"
+            class="dropdown-item"
             v-bind:class="{ active: filter == 'all', 'dropdown-item' : true}"
           >All</router-link>
 
           <router-link
+            v-if="filter !== 'favorite'"
             :to="{ name: 'contact-listing-favorites' }"
-            v-bind:class="{ active: filter == 'favorite', 'dropdown-item' : true}"
+            class="dropdown-item"
           >Favorites</router-link>
         </div>
       </div>
