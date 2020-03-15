@@ -6,14 +6,17 @@
       <!-- Filter Contacts -->
 
       <div class="dropdown" v-if="!searchActive">
-        <button
+        <!-- Dropdown button -->
+        <a
           :class="{'btn dropdown-toggle': true, 'btn-secondary': this.filter, 'btn-outline-secondary': !this.filter}"
-          type="button"
-          id="dropdownMenuButton"
           data-toggle="dropdown"
+          href="#"
+          role="button"
           aria-haspopup="true"
           aria-expanded="false"
-        >{{filterText}}</button>
+        >{{filterText}}</a>
+
+        <!-- Dropdown Items -->
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <router-link
             v-if="filter !== 'all'"
