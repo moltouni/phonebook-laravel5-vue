@@ -149,7 +149,7 @@
                   <button
                     @click="removePhoneField(index)"
                     :id="`phoneRemove-${index}`"
-                    class="btn btn-outline-secondary"
+                    class="btn btn-outline-secondary d-block"
                   >
                     <icon name="times"></icon>
                   </button>
