@@ -152,6 +152,7 @@ $searchFontSize: 21px;
 
 .navigation {
   padding: 12px;
+
   .dropdown {
     display: inline-block;
     .dropdown-item.active,
@@ -171,6 +172,7 @@ $searchFontSize: 21px;
     button {
       &.searchActive {
         position: absolute;
+        border-radius: 0;
       }
     }
 
