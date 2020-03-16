@@ -8,8 +8,8 @@
           <picture-input
             ref="pictureInput"
             @change="onAvatarChange"
-            width="128"
-            height="128"
+            width="256"
+            height="256"
             margin="0"
             accept="image/jpeg, image/png, image/jpg"
             size="10"
@@ -47,7 +47,7 @@
           <div class="col">
             <div class="form-group">
               <label for="firstName">
-                <h5>First name (*)</h5>
+                <h5>First name *</h5>
               </label>
               <input
                 v-model="contact.first_name"
@@ -66,7 +66,7 @@
           <div class="col">
             <div class="form-group">
               <label for="lastName">
-                <h5>Last name (*)</h5>
+                <h5>Last name *</h5>
               </label>
               <input
                 v-model="contact.last_name"
@@ -103,7 +103,7 @@
         <div class="contact-form-phones">
           <h5>Phones</h5>
 
-          <button @click="addPhoneField" class="btn btn-outline-secondary">Add</button>
+          <button @click="addPhoneField" class="btn btn-outline-secondary w-100">Add</button>
 
           <div v-for="(phone, index) in phones" :key="phone.id">
             <div class="row contact-form-phones-item">
@@ -111,7 +111,7 @@
 
               <div class="col">
                 <div class="form-group">
-                  <label :for="`phoneLabel-${index}`">Label (*)</label>
+                  <label :for="`phoneLabel-${index}`">Label *</label>
                   <input
                     v-model="phone.label"
                     type="text"
@@ -126,7 +126,7 @@
 
               <div class="col">
                 <div class="form-group">
-                  <label :for="`phoneNumber-${index}`">Number (*)</label>
+                  <label :for="`phoneNumber-${index}`">Number *</label>
                   <input
                     v-model="phone.number"
                     type="text"
@@ -158,21 +158,21 @@
         <!-- Controls -->
 
         <div class="text-center">
+          <!-- Save -->
+
+          <button
+            :disabled="!isFormDataValid"
+            class="btn btn-outline-success contact-form-save w-100"
+            @click="saveContact(contact, phones)"
+          >Save Contact</button>
+
           <!-- Delete -->
 
           <button
             v-if="contact.id"
             @click="deleteContact(contact.id)"
-            class="btn btn-danger contact-form-delete"
+            class="btn btn-outline-danger contact-form-delete w-100"
           >Delete Contact</button>
-
-          <!-- Save -->
-
-          <button
-            :disabled="!isFormDataValid"
-            class="btn btn-success contact-form-save"
-            @click="saveContact(contact, phones)"
-          >Save Contact</button>
         </div>
       </div>
     </div>
@@ -401,7 +401,7 @@ $border: 3px solid #ddd;
 
   .contact-form-save,
   .contact-form-delete {
-    margin: $margin / 2 0;
+    margin: $margin / 2 0 0;
   }
 }
 </style>
