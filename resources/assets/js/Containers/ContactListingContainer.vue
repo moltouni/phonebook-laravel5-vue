@@ -10,10 +10,10 @@
         :key="contact.id"
         :contact="contact"
       ></contact-component>
+    </div>
 
-      <div v-if="filter == 'search' && !contacts.length">
-        <h3>You've lost me...</h3>
-      </div>
+    <div v-if="filter == 'search' && !contacts.length">
+      <h3>You've lost me...</h3>
     </div>
   </div>
 </template>
@@ -88,38 +88,21 @@ export default {
 
 <style lang="scss" scoped>
 $margin: 64px;
-$borderRadius: 8px;
-
-$contactWidth: 420px;
-$contactHeight: $contactWidth/1.7;
 
 .contact-listing {
-  .contacts {
-    margin-top: $margin;
-  }
-
   .loader {
     text-align: center;
     margin: $margin;
   }
 
   .contacts {
-    text-align: center;
     padding: $margin / 2;
-    .contact-add {
-      display: inline-block;
-      overflow: hidden;
-      text-align: center;
-      background: #eee;
-      border: 3px dashed #ddd;
-      border-radius: $borderRadius;
-      padding: 80px;
-      width: $contactWidth;
-      max-width: 100%;
-      height: $contactHeight;
-      font-size: 64px;
-      margin: 8px;
-    }
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 </style>
