@@ -157,6 +157,7 @@ $searchFontSize: 21px;
 
 .navigation {
   padding: 12px;
+  background-color: #f5f8fa;
 
   .dropdown {
     display: inline-block;
