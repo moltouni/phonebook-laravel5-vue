@@ -8,8 +8,8 @@
           <picture-input
             ref="pictureInput"
             @change="onAvatarChange"
-            width="256"
-            height="256"
+            width="128"
+            height="128"
             margin="0"
             accept="image/jpeg, image/png, image/jpg"
             size="10"
@@ -385,6 +385,7 @@ export default {
 $margin: 64px;
 $background: #eee;
 $border: 3px solid #ddd;
+
 .contact-form {
   margin-top: $margin / 2;
 
