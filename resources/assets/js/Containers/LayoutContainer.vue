@@ -103,8 +103,6 @@ export default {
 
       if (this.query == "") {
         this.$router.push({ name: "contact-listing-all" });
-      } else {
-        this.focusSearch();
       }
     } else {
       this.filter = null;
@@ -142,6 +140,13 @@ export default {
         return this.capitalize(this.filter) + " Contacts";
       }
       return "Contacts";
+    }
+  },
+  watch: {
+    searchActive(newValue, oldValue) {
+      if (newValue === true) {
+        this.focusSearch();
+      }
     }
   }
 };
