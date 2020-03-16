@@ -23,24 +23,6 @@
           ></picture-input>
         </div>
 
-        <!-- Favorite -->
-
-        <div class="form-group">
-          <label for="favorite">
-            <h5>Favorite</h5>
-          </label>
-          <toggle-button
-            v-model="contact.favorite"
-            :width="100"
-            :height="32"
-            :value="false"
-            :sync="true"
-            :labels="false"
-            class="favorite"
-            id="favorite"
-          />
-        </div>
-
         <!-- First Name -->
 
         <div class="row">
@@ -98,12 +80,32 @@
           </div>
         </div>
 
+        <!-- Favorite -->
+
+        <div class="form-group">
+          <label for="favorite">
+            <h5>Favorite</h5>
+          </label>
+          <toggle-button
+            v-model="contact.favorite"
+            :width="100"
+            :height="32"
+            :value="false"
+            :sync="true"
+            :labels="false"
+            class="favorite"
+            id="favorite"
+          />
+        </div>
+
+        <br />
+
         <!-- Phones -->
 
         <div class="contact-form-phones">
-          <h5>Phones</h5>
+          <h5>Phone numbers</h5>
 
-          <button @click="addPhoneField" class="btn btn-outline-secondary w-100">Add</button>
+          <button @click="addPhoneField" class="btn btn-outline-secondary">Add phone number</button>
 
           <div v-for="(phone, index) in phones" :key="phone.id">
             <div class="row contact-form-phones-item">
@@ -111,7 +113,9 @@
 
               <div class="col">
                 <div class="form-group">
-                  <label :for="`phoneLabel-${index}`">Label *</label>
+                  <label :for="`phoneLabel-${index}`">
+                    <h5>Label</h5>
+                  </label>
                   <input
                     v-model="phone.label"
                     type="text"
@@ -126,7 +130,9 @@
 
               <div class="col">
                 <div class="form-group">
-                  <label :for="`phoneNumber-${index}`">Number *</label>
+                  <label :for="`phoneNumber-${index}`">
+                    <h5>Number</h5>
+                  </label>
                   <input
                     v-model="phone.number"
                     type="text"
@@ -141,7 +147,9 @@
 
               <div class="col">
                 <div class="form-group">
-                  <label :for="`phoneRemove-${index}`">Remove</label>
+                  <label :for="`phoneRemove-${index}`">
+                    <h5>Remove</h5>
+                  </label>
                   <button
                     @click="removePhoneField(index)"
                     :id="`phoneRemove-${index}`"
@@ -158,21 +166,21 @@
         <!-- Controls -->
 
         <div class="text-center">
-          <!-- Save -->
-
-          <button
-            :disabled="!isFormDataValid"
-            class="btn btn-outline-success contact-form-save w-100"
-            @click="saveContact(contact, phones)"
-          >Save Contact</button>
-
           <!-- Delete -->
 
           <button
             v-if="contact.id"
             @click="deleteContact(contact.id)"
-            class="btn btn-outline-danger contact-form-delete w-100"
+            class="btn btn-outline-danger contact-form-delete"
           >Delete Contact</button>
+
+          <!-- Save -->
+
+          <button
+            :disabled="!isFormDataValid"
+            class="btn btn-outline-success contact-form-save"
+            @click="saveContact(contact, phones)"
+          >Save Contact</button>
         </div>
       </div>
     </div>
