@@ -1,9 +1,9 @@
 <template>
   <div class="container contact-form">
     <div class="row">
-      <!-- Avatar -->
+      <div class="col-md-12">
+        <!-- Avatar -->
 
-      <div class="col-md-4 contact-form-left">
         <div class="form-group">
           <picture-input
             ref="pictureInput"
@@ -22,16 +22,12 @@
                         }"
           ></picture-input>
         </div>
-      </div>
 
-      <!-- Information -->
-
-      <div class="col-md-8 contact-form-right">
         <!-- Favorite -->
 
         <div class="form-group">
           <label for="favorite">
-            <p>Favorite</p>
+            <h5>Favorite</h5>
           </label>
           <toggle-button
             v-model="contact.favorite"
@@ -51,7 +47,7 @@
           <div class="col">
             <div class="form-group">
               <label for="firstName">
-                <p>First name (*)</p>
+                <h5>First name (*)</h5>
               </label>
               <input
                 v-model="contact.first_name"
@@ -70,7 +66,7 @@
           <div class="col">
             <div class="form-group">
               <label for="lastName">
-                <p>Last name (*)</p>
+                <h5>Last name (*)</h5>
               </label>
               <input
                 v-model="contact.last_name"
@@ -89,7 +85,7 @@
           <div class="col">
             <div class="form-group">
               <label for="email">
-                <p>Email</p>
+                <h5>Email</h5>
               </label>
               <input
                 v-model="contact.email"
@@ -105,7 +101,7 @@
         <!-- Phones -->
 
         <div class="contact-form-phones">
-          <p>Phones</p>
+          <h5>Phones</h5>
 
           <button @click="addPhoneField" class="btn btn-outline-secondary">Add</button>
 
