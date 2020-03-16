@@ -10,10 +10,10 @@
         :key="contact.id"
         :contact="contact"
       ></contact-component>
-    </div>
 
-    <div v-if="filter == 'search' && !contacts.length">
-      <h3>You've lost me...</h3>
+      <div v-if="filter == 'search' && !contacts.length">
+        <h3>You've lost me...</h3>
+      </div>
     </div>
   </div>
 </template>
