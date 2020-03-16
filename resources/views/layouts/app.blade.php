@@ -133,12 +133,12 @@
       sizes="16x16"
       href="img/favicon/favicon-16x16.png"
     />
-    <meta name="msapplication-TileColor" content="#9b4dca" />
+    <meta name="msapplication-TileColor" content="#eee" />
     <meta
       name="msapplication-TileImage"
       content="img/favicon/ms-icon-144x144.png"
     />
-    <meta name="theme-color" content="#9b4dca" />
+    <meta name="theme-color" content="#eee" />
 </head>
 <body>
     <div id="app">
