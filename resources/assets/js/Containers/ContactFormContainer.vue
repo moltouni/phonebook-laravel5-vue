@@ -386,10 +386,10 @@ $margin: 64px;
 $background: #eee;
 $border: 3px solid #ddd;
 .contact-form {
-  margin-top: $margin;
+  margin-top: $margin / 2;
 
   & > .row {
-    margin: $margin 0;
+    margin: $margin / 2 0;
     padding: $margin 0;
     background: $background;
     border: $border;

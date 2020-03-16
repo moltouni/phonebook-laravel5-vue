@@ -163,7 +163,7 @@ $sizeMd: 768px;
 $favorite-color: #22863a;
 
 .contact-container {
-  margin: $margin 0;
+  margin: $margin / 2 0;
   padding: $margin 0;
   background: $background;
   border: $border;
