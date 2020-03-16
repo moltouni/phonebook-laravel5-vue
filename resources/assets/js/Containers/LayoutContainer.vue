@@ -173,6 +173,9 @@ $searchFontSize: 21px;
       &.searchActive {
         position: absolute;
         border-radius: 0;
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
       }
     }
 
