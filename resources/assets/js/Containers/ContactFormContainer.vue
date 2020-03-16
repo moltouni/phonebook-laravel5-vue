@@ -379,8 +379,8 @@ export default {
 
 <style lang="scss" scoped>
 $margin: 64px;
-$background: #d3e0e9;
-
+$background: #eee;
+$border: 3px solid #ddd;
 .contact-form {
   margin-top: $margin;
 
@@ -388,6 +388,7 @@ $background: #d3e0e9;
     margin: $margin 0;
     padding: $margin 0;
     background: $background;
+    border: $border;
     border-radius: 8px;
   }
 

@@ -64,7 +64,8 @@ export default {
 $width: 420px;
 $height: $width/1.7;
 
-$background: #d3e0e9;
+$background: #eee;
+$border: 3px solid #ddd;
 
 .contact {
   display: inline-block;
@@ -78,6 +79,7 @@ $background: #d3e0e9;
   overflow: hidden;
   text-align: center;
   background: $background;
+  border: $border;
   border-radius: 8px;
 
   .controls {
