@@ -1,6 +1,6 @@
-# Phonebook App - Laravel 5 Repository Pattern, Vue.js and Vuex
+# Phonebook PWA - Laravel 5 Repository Pattern, Vue.js
 
-Simple phonebook app that demonstrates usage of repository pattern in Laravel 5, vuex and vue.js.
+Simple phonebook app that demonstrates usage of repository pattern in Laravel 5 and Vue.js 2.
 
 - [Demo](https://phonebook.marionovak.online)
 - [Screenshot - Frontend Preview](https://drive.google.com/file/d/1bShaUGYhD9kXhzsb3YH7qVDf2iYwBCEL/view?usp=sharing)
@@ -84,6 +84,13 @@ Run `php artisan db:seed`
     - Last name: `config('users.test.USER_LAST_NAME', 'Smith')`,
     - Email: `config('users.test.USER_EMAIL', 'test@phonebook.marionovak.online')`,
     - Password: `config('users.test.USER_PASSWORD', 'secret')`
+
+## Progressive Web Application
+
+```
+cd public/
+sw-precache --maximum-file-size-to-cache-in-bytes 8097152 --config sw-config.js
+```
 
 ## Tests
 
